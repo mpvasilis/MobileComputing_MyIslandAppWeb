@@ -12,6 +12,10 @@
               </div>
             </div>
 
+            @if(session('success'))
+    <h1>{{session('success')}}</h1>
+@endif
+
     <div class="row row-cards">
     @foreach ($places as $place)
 
@@ -54,19 +58,42 @@
         </button>
       </div>
       <div class="modal-body">
+      {!! Form::open(array('action' => array('PlaceController@store'),'files'=> true, 'enctype'=>'multipart/form-data')) !!}
+                            {!! Form::label('name', 'Όνομα μέρους') !!}
+                            {!! Form::text('name', null, ['class' => 'form-control','required' => 'required']) !!}
 
-      <form>
-  <div class="form-group">
-    <label for="name">Όνομα μέρους</label>
-    <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="Όνομα μέρους">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
+                            {!! Form::label('category', 'Κατηγορία') !!}
+                            {{ Form::select('category',array(1=> 'Αξιοθέατα',2=> 'Εστίαση', 3=> 'Διαμονή' , 4=> 'Παραλίες'), null, ['class' => 'form-control']) }}
 
-  <button type="submit" class="btn btn-primary">Προσθήκη</button>
-</form>
+                            {!! Form::label('image', 'Εικόνα') !!}
+                            {!! Form::file('image', ['class' => 'form-control','required' => 'required']) !!}
+
+                            {!! Form::label('address', 'Διέθυνση') !!}
+                            {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                            
+                            {!! Form::label('phone', 'Τηλέφωνο') !!}
+                            {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('website', 'Ιστοσελίδα') !!}
+                            {!! Form::text('website', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('description', 'Σύντομή Περιγραφή') !!}
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 2, 'required' => 'required']) !!}
+
+                            {!! Form::label('description_long', 'Περιγραφή') !!}
+                            {!! Form::textarea('description_long', null, ['class' => 'form-control', 'rows' => 5]) !!}
+
+                            {!! Form::label('lat', 'Latitude') !!}
+                            {!! Form::text('lat', null, ['class' => 'form-control','required' => 'required']) !!}
+
+                            {!! Form::label('lng', 'Longtitude') !!}
+                            {!! Form::text('lng', null, ['class' => 'form-control', 'required' => 'required']) !!}
+
+
+                            <br>
+                            {!! Form::submit('Προσθήκη', ['class' => 'btn btn-primary ']) !!}
+{!! Form::close() !!}
+   
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>

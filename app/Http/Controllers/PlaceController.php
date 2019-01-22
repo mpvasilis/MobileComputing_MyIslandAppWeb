@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class PlaceController extends Controller
 {
@@ -14,8 +16,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Place::get();
-        return view('places', compact('places'));
+
     }
 
     public function __construct()
@@ -42,13 +43,34 @@ class PlaceController extends Controller
     public function store(Request $request)
     {
         $place = new Place();
-        $place->title = $request['title'];
-        $place->info = $request['info'];
-        $place->is_active = $request['is_active'];
-        $place->type_id = $request['type_id'];
+        $place->name = $request['name'];
+        $place->category = $request['category'];
+        $place->address = $request['address'];
+        $place->phone = $request['phone'];
+        $place->website = $request['website'];
+
+        $place->description = $request['description'];
+        $place->description_long = $request['description_long'];
+
+
+        $place->lat = $request['lat'];
+        $place->lng = $request['lng'];
+
+        $place->last_update = time();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            $place->image =$name;
+
+    
+        }
+    
         $place->save();
         $places = Place::get();
-        return view('places', compact('places'));
+        return back()->with('success', 'Προσθέθηκε!');
     }
 
     /**
@@ -59,8 +81,7 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
-        $places = Place::get();
-        return view('places', compact('places'));
+        
     }
 
 
