@@ -18,12 +18,6 @@
     <title>My Island App</title>
     <link rel="stylesheet" href="../maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="assets/js/require.min.js"></script>
-    <script>
-      requirejs.config({
-          baseUrl: '.'
-      });
-    </script>
     <!-- Dashboard Core -->
     <link href="assets/css/dashboard.css" rel="stylesheet" />
     <script src="assets/js/dashboard.js"></script>
@@ -43,24 +37,21 @@
           <div class="row">
             <div class="col col-login mx-auto">
               <div class="text-center mb-6">
-                <span>My Island App</span>
+                <span style="font-weight:bold; font-size:30px;">My Island App</span>
               </div>
-
-              
-        
 
               <form class="card" method="POST" action="{{ route('login') }}">
 
       @if ($errors->has('email'))
-                                    <span class="help-block">
+      <div class="alert alert-danger">
                                         <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                    </div>
                                 @endif
 
                                         @if ($errors->has('password'))
-                                    <span class="help-block">
+                                        <div class="alert alert-danger">
                                         <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                        </div>
                                 @endif
 
               {{ csrf_field() }}

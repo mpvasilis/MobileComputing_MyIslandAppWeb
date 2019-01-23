@@ -81,7 +81,9 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
-        
+        $category_title="Όλα τα μέρη";
+        $places = Place::get();
+        return view('places', compact('places','category_title'));
     }
 
 

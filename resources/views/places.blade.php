@@ -1,20 +1,22 @@
 @include('header')
        <div class="my-3 my-md-5">
           <div class="container">
+          @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
             <div class="page-header">
               <h1 class="page-title">
               {{ $category_title }}
               </h1>
-              <div class="page-subtitle">{{ count($places) }} μέρη</div>
+              <div class="page-subtitle">{{ count($places) }} {{ count($places) === 1 ? "μέρος" : "μέρη" }}</div>
               <div class="page-options d-flex">
              
              
               </div>
             </div>
-
-            @if(session('success'))
-    <h1>{{session('success')}}</h1>
-@endif
 
     <div class="row row-cards">
     @foreach ($places as $place)
@@ -30,12 +32,15 @@
                       <small class="d-block text-muted">{{ $place -> description }}</small>
                     </div>
 
-                    @if ($place -> category == 4)
                     <div class="ml-auto text-muted">
-                      <a href="{{ url('/place') }}/{{ $place -> id }}" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i> 42</a>
-                    </div>
-                    @endif
-              
+                    @if ($place -> category == 4)
+                    <a href="{{ url('/place') }}/{{ $place -> id }}" class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> 42</a>
+
+                     @endif
+                        <a href="#" onclick="editPlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-edit"></i></i></a>
+                        <a href="#" onclick="deletePlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-trash-alt"></i></i></a>
+
+                      </div>
                   </div>
                 </div>
               </div>
@@ -49,11 +54,11 @@
 
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addplaceModal" tabindex="-1" role="dialog" aria-labelledby="addplaceModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Προσθήκη μέρους</h5>
+        <h5 class="modal-title" id="addplaceModalLabel">Προσθήκη μέρους</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         </button>
       </div>

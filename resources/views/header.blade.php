@@ -31,7 +31,7 @@
               </a>
               <div class="d-flex order-lg-2 ml-auto">
                 <div class="nav-item d-none d-md-flex">
-                  <a href="#" data-toggle="modal" data-target="#exampleModal" id="new" class="btn btn-sm btn-outline-primary">Προσθήκη</a>
+                  <a href="#" id="addplaceBtn" class="btn btn-sm btn-outline-primary">Προσθήκη</a>
                 </div>
              
                 <div class="dropdown">
@@ -68,11 +68,15 @@
               </div>
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                <li class="nav-item">
+                    <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}""><i class="fas fa-th-list"></i> &nbsp; Όλα τα μέρη</a>
+                  </li>
+
                   <li class="nav-item">
                     <a href="{{ url('/hotels') }}" class="nav-link {{ Request::is('hotels') ? 'active' : '' }}""><i class="fas fa-hotel"></i> &nbsp; Διαμονή</a>
                   </li>
             
-                  <li class="nav-item dropdown">
+                  <li class="nav-item">
                     <a href="{{ url('/food') }}" class="nav-link {{ Request::is('food') ? 'active' : '' }}"><i class="fas fa-utensils"></i> &nbsp;Εστίαση</a>
                   </li>
                   <li class="nav-item">
