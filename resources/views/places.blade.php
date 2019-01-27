@@ -23,7 +23,7 @@
 
               <div class="col-sm-6 col-lg-4">
                 <div class="card p-3">
-                  <a href="{{ url('/place') }}/{{ $place -> id }}" class="mb-3">
+                  <a href="#" onclick="show({{ $place -> id }})" class="mb-3">
                     <img style="height: 250px;" src="uploads/{{ $place -> image }}" class="rounded">
                   </a>
                   <div class="d-flex align-items-center px-2">
@@ -40,9 +40,10 @@
 
                     <div class="ml-auto text-muted">
                     @if ($place -> category == 4)
-                    <a href="{{ url('/place') }}/{{ $place -> id }}" class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> 42</a>
+                    <a href="#" onclick="show({{ $place -> id }}) class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> 42</a>
 
                      @endif
+                        <a href="#" onclick="images({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-images"></i></i></a>
                         <a href="#" onclick="editPlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-edit"></i></i></a>
                         <a href="#" onclick="deletePlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-trash-alt"></i></i></a>
 
@@ -59,6 +60,7 @@
 
 
 
+<!-- Add Modal -->
 
     <div class="modal fade" id="addplaceModal" tabindex="-1" role="dialog" aria-labelledby="addplaceModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -103,13 +105,116 @@
 
                             <br>
                             {!! Form::submit('Προσθήκη', ['class' => 'btn btn-primary ']) !!}
-{!! Form::close() !!}
+                            {!! Form::close() !!}
    
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
       </div>
     </div>
+    </div>
   </div>
+
+
+<!-- Edit Modal -->
+
+      <div class="modal fade" id="editplaceModal" tabindex="-1" role="dialog" aria-labelledby="editplaceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editplaceModalLabel">Επεξεργασία μέρους</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+      {!! Form::open(array('action' => array('PlaceController@update'),'files'=> true, 'enctype'=>'multipart/form-data')) !!}
+                            {{ Form::hidden('id', '') }}
+
+                            {!! Form::label('name', 'Όνομα μέρους') !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('category', 'Κατηγορία') !!}
+                            {{ Form::select('category',array(1=> 'Αξιοθέατα',2=> 'Εστίαση', 3=> 'Διαμονή' , 4=> 'Παραλίες'), null, ['class' => 'form-control']) }}
+
+                            {!! Form::label('image', 'Εικόνα') !!}
+                            {!! Form::file('image', ['class' => 'form-control']) !!}
+
+                            {!! Form::label('address', 'Διέθυνση') !!}
+                            {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                            
+                            {!! Form::label('phone', 'Τηλέφωνο') !!}
+                            {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('website', 'Ιστοσελίδα') !!}
+                            {!! Form::text('website', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('description', 'Σύντομή Περιγραφή') !!}
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 2]) !!}
+
+                            {!! Form::label('description_long', 'Περιγραφή') !!}
+                            {!! Form::textarea('description_long', null, ['class' => 'form-control', 'rows' => 5]) !!}
+
+                            {!! Form::label('lat', 'Latitude') !!}
+                            {!! Form::text('lat', null, ['class' => 'form-control']) !!}
+
+                            {!! Form::label('lng', 'Longtitude') !!}
+                            {!! Form::text('lng', null, ['class' => 'form-control']) !!}
+
+
+                            <br>
+                            {!! Form::submit('Επεξεργασία μέρους', ['class' => 'btn btn-primary ']) !!}
+                            {!! Form::close() !!}
+   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
+      </div>
+    </div>
+    </div>
+  </div>
+  
+
+<!-- Images Modal -->
+<div class="modal fade" id="imagesModal" tabindex="-1" role="dialog" aria-labelledby="imagesModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imagesModalLabel">Εικόνες</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Show Modal -->
+<div class="modal fade" id="showPlaceModal" tabindex="-1" role="dialog" aria-labelledby="showPlaceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showPlaceModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </div>
 @include('footer')

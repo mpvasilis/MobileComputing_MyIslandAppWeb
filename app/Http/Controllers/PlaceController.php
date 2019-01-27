@@ -9,37 +9,12 @@ use File;
 
 class PlaceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
 
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $place = new Place();
@@ -64,7 +39,6 @@ class PlaceController extends Controller
             $destinationPath = public_path('/uploads');
             $image->move($destinationPath, $name);
             $place->image =$name;
-
     
         }
     
@@ -73,19 +47,12 @@ class PlaceController extends Controller
         return back()->with('success', 'Προσθέθηκε!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
     public function show(Place $place)
     {
         $category_title="Όλα τα μέρη";
         $places = Place::get();
         return view('places', compact('places','category_title'));
     }
-
 
     public function hotels(Place $place)
     {
@@ -119,42 +86,28 @@ class PlaceController extends Controller
         return view('places', compact('places','category_title'));
     }
 
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Place $place)
     {
-        Place::where('place_id', $request['id'])->update(['name' => $request['name'], 'info' => $request['info'], 'is_active' => $request['is_active'], 'type_id' => $request['type_id']]);
-        $places = Place::get();
-        return view('places', compact('places'));
+        if (Place::where('id', '=', $request['id'])->exists()) {
+            Place::where('id', $request['id'])->update(['name' => $request['name'], 'category' => $request['category'], 'address' => $request['address'], 'phone' => $request['phone'], 'website' => $request['website'], 'description' => $request['description'], 'description_long' => $request['description_long'],'lat' => $request['lat'],'lng' => $request['lng']]);
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads');
+                $image->move($destinationPath, $name);
+                Place::where('id', $request['id'])->update(['image' => $request['image']]);
+            }
+        
+            $places = Place::get();
+            return back()->with('success', 'Το μέρος ενημερώθηκε!');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, Place $place)
     {
-        Place::where('id', $request['id'])->delete();
-        return back()->with('success', 'Το μέρος διαγράφτηκε!');
+        if (Place::where('id', '=', $request['id'])->exists()) {
+            Place::where('id', $request['id'])->delete();
+            return back()->with('success', 'Το μέρος διαγράφτηκε!');
+        }
     }
 }
