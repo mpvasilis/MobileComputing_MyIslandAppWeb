@@ -152,10 +152,9 @@ class PlaceController extends Controller
      * @param  \App\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Place $place)
+    public function destroy(Request $request, Place $place)
     {
-        Place::where('place_id', $request['id'])->delete();
-        $places = Place::get();
-        return view('places', compact('places'));
+        Place::where('id', $request['id'])->delete();
+        return back()->with('success', 'Το μέρος διαγράφτηκε!');
     }
 }

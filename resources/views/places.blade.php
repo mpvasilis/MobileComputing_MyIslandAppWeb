@@ -24,12 +24,18 @@
               <div class="col-sm-6 col-lg-4">
                 <div class="card p-3">
                   <a href="{{ url('/place') }}/{{ $place -> id }}" class="mb-3">
-                    <img src="uploads/{{ $place -> image }}" class="rounded">
+                    <img style="height: 250px;" src="uploads/{{ $place -> image }}" class="rounded">
                   </a>
                   <div class="d-flex align-items-center px-2">
                     <div>
                       <div>{{ $place -> name }}</div>
-                      <small class="d-block text-muted">{{ $place -> description }}</small>
+                      <small class="d-block text-muted"><i class="fas fa-map-marker-alt"></i> {{ $place -> address }}</small>
+                      <small class="d-block text-muted"><i class="fas fa-phone"></i> {{ $place -> phone }}</small>
+                      <small class="d-block text-muted"><i class="fas fa-globe"></i> {{ $place -> website }}</small>
+                      <small class="d-block text-muted"> <i class="fas fa-map-marked"></i> {{ $place -> lat }}, {{ $place -> lng }}</small>
+
+                     
+                      <small class="d-block text-muted"><i class="fas fa-info"></i> {{ $place -> description }}</small>
                     </div>
 
                     <div class="ml-auto text-muted">

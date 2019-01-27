@@ -17,6 +17,10 @@ class BeachRatingsController extends Controller
         //
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +28,12 @@ class BeachRatingsController extends Controller
      */
     public function create()
     {
-        //
+        $br = new Beach_ratings();
+  
+    
+        $br->save();
+        $br = Beach_ratings::get();
+        return "success";
     }
 
     /**
