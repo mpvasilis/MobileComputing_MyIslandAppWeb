@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d2db48f22d150da5df4381b50409c50",
+    "content-hash": "c4679e13f31f5980a976d5b50040bbc9",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -970,6 +970,46 @@
                 "shell"
             ],
             "time": "2018-10-13T15:16:03+00:00"
+        },
+        {
+            "name": "rachidlaasri/laravel-installer",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RachidLaasri/LaravelInstaller.git",
+                "reference": "a16c3574b9e66cdc05b8e0096efe0de71053a8d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RachidLaasri/LaravelInstaller/zipball/a16c3574b9e66cdc05b8e0096efe0de71053a8d2",
+                "reference": "a16c3574b9e66cdc05b8e0096efe0de71053a8d2",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RachidLaasri\\LaravelInstaller\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachid Laasri",
+                    "email": "rashidlaasri@gmail.com"
+                },
+                {
+                    "name": "Jeremy Kenedy",
+                    "email": "jeremykenedy@gmail.com"
+                }
+            ],
+            "description": "Laravel web installer",
+            "time": "2017-07-17T10:06:21+00:00"
         },
         {
             "name": "ramsey/uuid",
