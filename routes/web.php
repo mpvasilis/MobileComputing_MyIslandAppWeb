@@ -20,4 +20,8 @@ Route::post('/places', 'PlaceController@store')->name('add_new_place');
 Route::post('/places/update', 'PlaceController@update')->name('edit_place');
 Route::post('/places/delete', 'PlaceController@destroy')->name('delete_place');
 
+Route::post('/images', 'ImagesController@form')->middleware("auth")->name('images');
+
+
+
 

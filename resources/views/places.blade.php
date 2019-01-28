@@ -23,7 +23,7 @@
 
               <div class="col-sm-6 col-lg-4">
                 <div class="card p-3">
-                  <a href="#" onclick="show({{ $place -> id }})" class="mb-3">
+                  <a href="#" onclick="editPlace({{ $place -> id }})" class="mb-3">
                     <img style="height: 250px;" src="uploads/{{ $place -> image }}" class="rounded">
                   </a>
                   <div class="d-flex align-items-center px-2">
@@ -40,10 +40,10 @@
 
                     <div class="ml-auto text-muted">
                     @if ($place -> category == 4)
-                    <a href="#" onclick="show({{ $place -> id }}) class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> 42</a>
+                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> {{ $ratings[$place -> id] }}</a>
 
                      @endif
-                        <a href="#" onclick="images({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-images"></i></i></a>
+                        <a href="#" onclick="place_images({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-images"></i></i></a>
                         <a href="#" onclick="editPlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-edit"></i></i></a>
                         <a href="#" onclick="deletePlace({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-trash-alt"></i></i></a>
 
@@ -185,7 +185,42 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+      {!! Form::open(array('action' => array('ImagesController@form'),'files'=> true, 'enctype'=>'multipart/form-data')) !!}
+
+                            {{ Form::hidden('place_id', '') }}
+
+                            <img src="" id="image1_prv" height="100" width="100"> 
+                         
+                            {!! Form::label('image1', 'Εικόνα 1') !!}
+                            {!! Form::file('image1', ['class' => 'form-control','required' => 'required']) !!}
+
+                            <img src="" id="image2_prv" height="100" width="100"> 
+
+                            {!! Form::label('image2', 'Εικόνα 2') !!}
+                            {!! Form::file('image2', ['class' => 'form-control','required' => 'required']) !!}
+
+                            <img src="" id="image3_prv" height="100" width="100"> 
+
+
+                            {!! Form::label('image3', 'Εικόνα 3') !!}
+                            {!! Form::file('image3', ['class' => 'form-control','required' => 'required']) !!}
+
+                            <img src="" id="image4_prv" height="100" width="100"> 
+
+
+                            {!! Form::label('image4', 'Εικόνα 4') !!}
+                            {!! Form::file('image4', ['class' => 'form-control','required' => 'required']) !!}
+
+                            <img src="" id="image5_prv" height="100" width="100"> 
+
+
+                            {!! Form::label('image5', 'Εικόνα 5') !!}
+                            {!! Form::file('image5', ['class' => 'form-control','required' => 'required']) !!}
+
+                
+                            <br>
+                            {!! Form::submit('Submit', ['class' => 'btn btn-primary ']) !!}
+                            {!! Form::close() !!}
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
@@ -194,26 +229,6 @@
   </div>
 </div>
 
-
-<!-- Show Modal -->
-<div class="modal fade" id="showPlaceModal" tabindex="-1" role="dialog" aria-labelledby="showPlaceModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="showPlaceModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλείσιμο</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 </div>

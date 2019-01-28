@@ -4,91 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Beach_ratings;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BeachRatingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function rateBeach(Request $request)
     {
-        //
+            $status="success";
+            $br = new Beach_ratings();
+            $br->place_id = $request["id"];
+            $br->device = $request["deviceID"];
+            $br->rating = $request["rating"];
+            $br->save();
+            $avg = Beach_ratings::where('place_id', $request["id"])->avg('rating');
+            return  response()->json(['status'=>$status,'overalRating'=>$avg]);
     }
 
-    public function __construct()
+
+    public function getBeachOverallRating(Request $request)
     {
-        $this->middleware('auth');
+        if (Beach_ratings::where('place_id', '=', $request['id'])->exists()) {
+            $status="success";
+            $avg = Beach_ratings::where('place_id', $request["id"])->avg('rating');
+            return  response()->json(['status'=>$status,'overalRating'=>substr($avg, 0, 4)]);
+        }
+        else{
+            $status="NoRatings";
+            return  response()->json(['status'=>$status]);
+        }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function getAvarageRatings()
     {
-        $br = new Beach_ratings();
-  
+        
+        $sums = array();
+        $counts = array();
+        $ratings = Beach_ratings::get();
+        foreach ($ratings as $rating) {
+            if (array_key_exists($rating->place_id,$sums))
+            {
+            $sums[$rating->place_id] = $sums[$rating->place_id]+ $rating->rating;
+            $counts[$rating->place_id] = $counts[$rating->place_id]+ 1;
+            }
+            else{
+                $sums[$rating->place_id]=$rating->rating;
+                $counts[$rating->place_id]=1;
+            }
+        }
+        $avarages = array();
+        foreach($sums as $key => $item){
+            $avarages[$key]=substr($sums[$key]/$counts[$key], 0, 4);;
+        }
+        return $avarages;
+    }
+
     
-        $br->save();
-        $br = Beach_ratings::get();
-        return "success";
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Beach_ratings  $beach_ratings
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Beach_ratings $beach_ratings)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Beach_ratings  $beach_ratings
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Beach_ratings $beach_ratings)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Beach_ratings  $beach_ratings
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Beach_ratings $beach_ratings)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Beach_ratings  $beach_ratings
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Beach_ratings $beach_ratings)
-    {
-        //
-    }
+    
 }

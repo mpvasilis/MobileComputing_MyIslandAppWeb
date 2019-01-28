@@ -22,8 +22,18 @@ Route::get('/places', function() {
 Route::get('/places/{place_id}', function($place_id) {
     return Response::json(array('place'=>Place::find($place_id)));
 });
-Route::get('loadMore/{place_id}', 'PlaceController@loadMore'); 
-Route::get('loadMoreImages/{place_id}', 'PlaceController@loadMoreImages'); 
-Route::get('getBeachOverallRating/{place_id}', 'BeachRatingsController@getBeachOverallRating'); 
-Route::post('rateBeach/{id}', 'BeachRatingsController@rateBeach');
+
+Route::get('loadMore', function(Request $request) {
+    if (Place::where('id', '=', $request['id'])->exists()) {
+        $places = Place::where('id', $request['id'])->get();
+        return  response()->json(['status'=>"success",'loadMore'=>$places->first()->description_long]);;
+    }
+});
+
+Route::get('loadMoreImages', 'ImagesController@loadMoreImages'); 
+
+Route::get('getBeachOverallRating', 'BeachRatingsController@getBeachOverallRating'); 
+Route::post('rateBeach', 'BeachRatingsController@rateBeach');
+
+Route::get('/images/{place_id}', 'ImagesController@load');
 

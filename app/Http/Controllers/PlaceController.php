@@ -44,14 +44,15 @@ class PlaceController extends Controller
     
         $place->save();
         $places = Place::get();
-        return back()->with('success', 'Προσθέθηκε!');
+        return back()->with('success', 'Το μέρος προσθέθηκε!');
     }
 
     public function show(Place $place)
     {
         $category_title="Όλα τα μέρη";
         $places = Place::get();
-        return view('places', compact('places','category_title'));
+        $ratings = app('App\Http\Controllers\BeachRatingsController')->getAvarageRatings();
+        return view('places', compact('places','category_title','ratings'));
     }
 
     public function hotels(Place $place)
@@ -67,7 +68,8 @@ class PlaceController extends Controller
         $category="4";
         $category_title="Παραλίες";
         $places = Place::where('category', $category)->get();
-        return view('places', compact('places','category_title'));
+        $ratings = app('App\Http\Controllers\BeachRatingsController')->getAvarageRatings();
+        return view('places', compact('places','category_title','ratings'));
     }
 
     public function food(Place $place)
@@ -95,7 +97,7 @@ class PlaceController extends Controller
                 $name = time().'.'.$image->getClientOriginalExtension();
                 $destinationPath = public_path('/uploads');
                 $image->move($destinationPath, $name);
-                Place::where('id', $request['id'])->update(['image' => $request['image']]);
+                Place::where('id', $request['id'])->update(['image' => $name]);
             }
         
             $places = Place::get();
@@ -110,4 +112,5 @@ class PlaceController extends Controller
             return back()->with('success', 'Το μέρος διαγράφτηκε!');
         }
     }
+
 }

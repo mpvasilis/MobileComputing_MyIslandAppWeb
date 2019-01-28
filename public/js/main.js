@@ -41,20 +41,16 @@ function editPlace(place_id) {
 
   }
 
-function show(place_id) {
-    var jqxhr = $.getJSON( "/api/places/"+place_id, function() {
-      console.log("Show place id "+place_id);
+  function place_images(place_id) {
+    console.log("Images for place id "+place_id);
+    var jqxhr = $.getJSON( "/api/images/"+place_id, function() {
+      console.log("Iamges for place id "+place_id);
     })
       .done(function(data) {
+        $( "#imagesModalLabel" ).html( "Εικόνες για μέρος ID: "+place_id);
+        $( '[name=place_id]' ).val( data.place.id );
         $( "#name" ).val( data.place.name);
-        $( "#category" ).val( data.place.category);
-        $( "#description" ).val(data.place.description );
-        $( "#description_long" ).val(data.place.description_long );
-        $( "#website" ).val(data.place.website );
-        $( "#address" ).val(data.place.address );
-        $( "#phone" ).val(data.place.phone );
-        $( "#lat" ).val( data.place.lat);
-        $( "#lng" ).val(data.place.lng );
+        $('#imagesModal').modal('show');
       })
       .fail(function() {
         Swal.fire({
@@ -63,14 +59,8 @@ function show(place_id) {
           text: 'Error loading data!',
         })
       });
-     
 
-   
 
-  }
-
-  function images(place_id) {
-    console.log("Show place id "+place_id);
 
   }
 
