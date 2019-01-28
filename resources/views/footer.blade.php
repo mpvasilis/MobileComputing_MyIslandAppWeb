@@ -14,7 +14,7 @@
               </div>
             </div>
             <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-              Copyright © 2018-2019 <a href="#">My Island App</a>.
+              Copyright © 2018-2019 <a href="#">Κόγιας Αντώνης</a> & <a href="https://vasilis.pw/" target="_blank" >Βασίλης Μπαλάφας</a>.
             </div>
           </div>
         </div>

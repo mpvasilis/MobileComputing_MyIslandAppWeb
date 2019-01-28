@@ -18,7 +18,7 @@ class BeachRatingsController extends Controller
             $br->rating = $request["rating"];
             $br->save();
             $avg = Beach_ratings::where('place_id', $request["id"])->avg('rating');
-            return  response()->json(['status'=>$status,'overalRating'=>$avg]);
+            return  response()->json(['status'=>$status,'overallRating'=>substr($avg, 0, 4)]);
     }
 
 
@@ -27,7 +27,7 @@ class BeachRatingsController extends Controller
         if (Beach_ratings::where('place_id', '=', $request['id'])->exists()) {
             $status="success";
             $avg = Beach_ratings::where('place_id', $request["id"])->avg('rating');
-            return  response()->json(['status'=>$status,'overalRating'=>substr($avg, 0, 4)]);
+            return  response()->json(['status'=>$status,'overallRating'=>substr($avg, 0, 4)]);
         }
         else{
             $status="NoRatings";
