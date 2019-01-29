@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -28,11 +27,11 @@
           <div class="container">
             <div class="d-flex">
               <a class="header-brand" href="index.html">
-                <span>My Island App</span>
+                <span><img src="assets/img/island.png" style="height:25px"></i> My Island App</span>
               </a>
               <div class="d-flex order-lg-2 ml-auto">
                 <div class="nav-item d-none d-md-flex">
-                  <a href="#" id="addplaceBtn" class="btn btn-sm btn-outline-primary">Προσθήκη</a>
+                  <a href="#" id="addplaceBtn" class="btn btn-sm btn-outline-primary"><i class="fas fa-plus"></i> Νέο μέρος</a>
                 </div>
              
                 <div class="dropdown">
@@ -72,11 +71,9 @@
                 <li class="nav-item">
                     <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}""><i class="fas fa-th-list"></i> &nbsp; Όλα τα μέρη</a>
                   </li>
-
                   <li class="nav-item">
                     <a href="{{ url('/hotels') }}" class="nav-link {{ Request::is('hotels') ? 'active' : '' }}""><i class="fas fa-hotel"></i> &nbsp; Διαμονή</a>
                   </li>
-            
                   <li class="nav-item">
                     <a href="{{ url('/food') }}" class="nav-link {{ Request::is('food') ? 'active' : '' }}"><i class="fas fa-utensils"></i> &nbsp;Εστίαση</a>
                   </li>

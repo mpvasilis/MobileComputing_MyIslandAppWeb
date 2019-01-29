@@ -7,79 +7,92 @@ use Illuminate\Http\Request;
 
 class ImagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function addImage($place_id,$name)
     {
-        //
+            $status="success";
+            $image = new Images();
+            $image->place_id = $place_id;
+            $image->name = $name;
+            $image->save();
+            return  response()->json(['status'=>$status]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getImages(Request $request)
     {
-        //
+        if (Images::where('place_id', '=', $request['id'])->exists()) {
+            $status="success";
+            $images = Images::where('place_id', $request["id"])->get();
+            return  response()->json(['status'=>$status,'images'=>$images]);
+        }
+        else{
+            $status="NoExtraImagesFound";
+            return  response()->json(['status'=>$status]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function loadImages($place_id)
+    {
+        if (Images::where('place_id', '=', $place_id)->exists()) {
+            $status="success";
+            $images = Images::where('place_id', $place_id)->get();
+            return  response()->json(['status'=>$status,'images'=>$images]);
+        }
+        else{
+            $status="NoExtraImagesFound";
+            return  response()->json(['status'=>$status]);
+        }
+    }
+
+
     public function form(Request $request)
     {
-        //
-    }
+        $place_id=$request['place_id'];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Images  $images
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Images $images)
-    {
-        //
-    }
+        if ($request->hasFile('image1')) {
+            $image = $request->file('image1');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            addImage($place_id,$name);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Images  $images
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Images $images)
-    {
-        //
-    }
+        if ($request->hasFile('image2')) {
+            $image = $request->file('image1');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            addImage($place_id,$name);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Images  $images
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Images $images)
-    {
-        //
-    }
+        if ($request->hasFile('image3')) {
+            $image = $request->file('image3');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            addImage($place_id,$name);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Images  $images
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Images $images)
-    {
-        //
+        
+        if ($request->hasFile('image4')) {
+            $image = $request->file('image4');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            addImage($place_id,$name);
+        }
+
+        if ($request->hasFile('image5')) {
+            $image = $request->file('image4');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
+            addImage($place_id,$name);
+        }
+        
+    
+        return back()->with('success', 'Οι εικόνες ενημερώθηκαν!');
+    
     }
+    
 }

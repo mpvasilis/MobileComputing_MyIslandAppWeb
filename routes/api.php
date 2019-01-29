@@ -30,10 +30,10 @@ Route::get('loadMore', function(Request $request) {
     }
 });
 
-Route::get('loadMoreImages', 'ImagesController@loadMoreImages'); 
+Route::get('loadMoreImages', 'ImagesController@getImages'); 
+Route::get('images/{place_id}', 'ImagesController@loadImages'); 
+
 
 Route::get('getBeachOverallRating', 'BeachRatingsController@getBeachOverallRating'); 
 Route::post('rateBeach', 'BeachRatingsController@rateBeach');
-
-Route::get('/images/{place_id}', 'ImagesController@load');
 

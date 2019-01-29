@@ -43,13 +43,25 @@ function editPlace(place_id) {
 
   function place_images(place_id) {
     console.log("Images for place id "+place_id);
+    $("#image1_prv").hide();
+    $("#image2_prv").hide();
+    $("#image3_prv").hide();
+    $("#image4_prv").hide();
+    $("#image5_prv").hide();
     var jqxhr = $.getJSON( "/api/images/"+place_id, function() {
       console.log("Iamges for place id "+place_id);
     })
       .done(function(data) {
         $( "#imagesModalLabel" ).html( "Εικόνες για μέρος ID: "+place_id);
-        $( '[name=place_id]' ).val( data.place.id );
-        $( "#name" ).val( data.place.name);
+        $( '[name=place_id]' ).val( place_id );
+        var count = 1;
+        for(var image in data.images) {
+          $( "#image"+count+"_prv" ).show();
+          $( "#image"+count+"_prv" ).attr("src","/uploads/"+data.images[image].name);
+          count++;
+       }
+
+
         $('#imagesModal').modal('show');
       })
       .fail(function() {
@@ -59,9 +71,6 @@ function editPlace(place_id) {
           text: 'Error loading data!',
         })
       });
-
-
-
   }
 
 

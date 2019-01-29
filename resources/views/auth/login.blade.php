@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col col-login mx-auto">
               <div class="text-center mb-6">
-                <span style="font-weight:bold; font-size:30px;">My Island App</span>
+              <span style="font-weight:bold; font-size:40px;"> <img src="assets/img/island.png" style="height:50px"> My Island App</span>
               </div>
 
               <form class="card" method="POST" action="{{ route('login') }}">

@@ -40,7 +40,7 @@
 
                     <div class="ml-auto text-muted">
                     @if ($place -> category == 4)
-                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> {{ $ratings[$place -> id] }}</a>
+                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="far fa-star"></i> {{ array_key_exists( $place -> id, $ratings) ? $ratings[ $place -> id ] : "-" }} </a>
 
                      @endif
                         <a href="#" onclick="place_images({{ $place -> id }})" class="icon d-none d-md-inline-block ml-3"><i class="far fa-images"></i></i></a>
@@ -152,7 +152,7 @@
                             {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 2]) !!}
 
                             {!! Form::label('description_long', 'Περιγραφή') !!}
-                            {!! Form::textarea('description_long', null, ['class' => 'form-control', 'rows' => 5]) !!}
+                            {!! Form::textarea('description_long', null, ['class' => 'form-control pell', 'rows' => 5]) !!}
 
                             {!! Form::label('lat', 'Latitude') !!}
                             {!! Form::text('lat', null, ['class' => 'form-control']) !!}
@@ -181,7 +181,6 @@
       <div class="modal-header">
         <h5 class="modal-title" id="imagesModalLabel">Εικόνες</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -189,29 +188,29 @@
 
                             {{ Form::hidden('place_id', '') }}
 
-                            <img src="" id="image1_prv" height="100" width="100"> 
+                            <img src="" id="image1_prv" height="100" width="100"> <br>
                          
                             {!! Form::label('image1', 'Εικόνα 1') !!}
                             {!! Form::file('image1', ['class' => 'form-control','required' => 'required']) !!}
 
-                            <img src="" id="image2_prv" height="100" width="100"> 
+                            <img src="" id="image2_prv" height="100" width="100"> <br>
 
                             {!! Form::label('image2', 'Εικόνα 2') !!}
                             {!! Form::file('image2', ['class' => 'form-control','required' => 'required']) !!}
 
-                            <img src="" id="image3_prv" height="100" width="100"> 
+                            <img src="" id="image3_prv" height="100" width="100"> <br>
 
 
                             {!! Form::label('image3', 'Εικόνα 3') !!}
                             {!! Form::file('image3', ['class' => 'form-control','required' => 'required']) !!}
 
-                            <img src="" id="image4_prv" height="100" width="100"> 
+                            <img src="" id="image4_prv" height="100" width="100"> <br>
 
 
                             {!! Form::label('image4', 'Εικόνα 4') !!}
                             {!! Form::file('image4', ['class' => 'form-control','required' => 'required']) !!}
 
-                            <img src="" id="image5_prv" height="100" width="100"> 
+                            <img src="" id="image5_prv" height="100" width="100"> <br>
 
 
                             {!! Form::label('image5', 'Εικόνα 5') !!}
