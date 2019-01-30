@@ -29,9 +29,9 @@
                   <div class="d-flex align-items-center px-2">
                     <div>
                       <div>{{ $place -> name }}</div>
-                      <small class="d-block text-muted"><i class="fas fa-map-marker-alt"></i> {{ $place -> address }}</small>
-                      <small class="d-block text-muted"><i class="fas fa-phone"></i> {{ $place -> phone }}</small>
-                      <small class="d-block text-muted"><i class="fas fa-globe"></i> {{ $place -> website }}</small>
+                      <small class="d-block text-muted"><i class="fas fa-map-marker-alt"></i>  {{ $place -> address != "" ?  $place -> address : "-" }} </small>
+                      <small class="d-block text-muted"><i class="fas fa-phone"></i> {{ $place -> phone != "" ?  $place -> phone : "-" }} </small>
+                      <small class="d-block text-muted"><i class="fas fa-globe"></i> {{ $place -> website != "" ?  $place -> website : "-" }}</small>
                       <small class="d-block text-muted"> <i class="fas fa-map-marked"></i> {{ $place -> lat }}, {{ $place -> lng }}</small>
 
                      
@@ -227,8 +227,6 @@
     </div>
   </div>
 </div>
-
-
 
 </div>
 @include('footer')

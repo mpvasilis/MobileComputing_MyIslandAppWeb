@@ -19,6 +19,8 @@ Route::get('/places', function() {
     $places_count=Place::all()->count();
     return Response::json(array('status'=>"success",'count_total'=>(int) $places_count,'count'=>(int) $places_count,'pages'=>1,'places'=>$places));
 });
+
+
 Route::get('/places/{place_id}', function($place_id) {
     return Response::json(array('place'=>Place::find($place_id)));
 });
@@ -35,5 +37,6 @@ Route::get('images/{place_id}', 'ImagesController@loadImages');
 
 
 Route::get('getBeachOverallRating', 'BeachRatingsController@getBeachOverallRating'); 
+Route::get('/getBeachesbyRating', 'BeachRatingsController@getBeachesbyRating'); 
 Route::post('rateBeach', 'BeachRatingsController@rateBeach');
 

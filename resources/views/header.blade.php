@@ -43,8 +43,8 @@
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" href="#">
-                    <a href="{{ url('/logout') }}"  class="nav-link pr-0 leading-none "> <i class="dropdown-icon fe fe-log-out"></i> Αποσύνδεση </a>
+                    <a class="dropdown-item" href="{{ url('/logout') }}">
+                   <i class="dropdown-icon fe fe-log-out"></i> Αποσύνδεση
                     </a>
                   </div>
                 </div>
